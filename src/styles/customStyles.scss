@@ -1,0 +1,91 @@
+.header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainContainer {
+  column-width: 320px;
+  column-gap: 15px;
+  width: 90%;
+  margin: 50px auto;
+  .cardContainer {
+    -webkit-column-break-inside: avoid;
+    border-top: 1px solid #ccc;
+    padding: 15px;
+    padding-bottom: 20px;
+    margin: 0 2px 15px;
+    text-align: left;
+    .cardHeader {
+      height: 200px;
+      .productName {
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .productDescription {
+        font-size: 12px;
+        text-transform: uppercase;
+        margin: 6px 80px 6px 0;
+        height: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .imgContainer {
+      border-bottom: 1px solid #ccc;
+      figure {
+        background: #fefefe;
+        transition: opacity 0.4s ease-in-out;
+        display: inline-block;
+        max-width: 280px;
+        img {
+          max-width: 100%;
+          height: auto;
+          height: auto;
+          padding-bottom: 15px;
+          margin-bottom: 5px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .productPrice {
+      font-weight: bold;
+    }
+  }
+  .cardFooter {
+    display: flex;
+    padding: 18px 0;
+    align-items: center;
+    justify-content: space-between;
+
+    .addToBagBtn {
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      height: 30px;
+      line-height: 30px;
+      padding: 5px 15px;
+      font-size: 15px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .mainContainer {
+    column-gap: 0px;
+    figure {
+      width: 100%;
+    }
+  }
+}
