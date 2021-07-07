@@ -2,6 +2,32 @@
   height: 70px;
   display: flex;
   justify-content: space-between;
+  background: black;
+  color: white;
+  align-items: center;
+  padding: 10px 15px;
+  .macLogo {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .searchInputContainer {
+    align-items: flex-end;
+    display: flex;
+    .searchInput {
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #ccc;
+      outline: none;
+      color: #ccc;
+      &:focus {
+        color: #ccc;
+      }
+    }
+    .searchIcon {
+      border-bottom: 1px solid #ccc;
+    }
+  }
 }
 
 .mainContainer {
@@ -16,8 +42,13 @@
     padding-bottom: 20px;
     margin: 0 2px 15px;
     text-align: left;
+    max-height: 500px;
+    &:nth-child(1) {
+      border-top: none;
+    }
     .cardHeader {
       height: 200px;
+
       .productName {
         font-size: 18px;
         font-weight: bold;
@@ -31,22 +62,23 @@
         text-transform: uppercase;
         margin: 6px 80px 6px 0;
         height: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
 
     .imgContainer {
       border-bottom: 1px solid #ccc;
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
       figure {
+        height: 200px;
         background: #fefefe;
         transition: opacity 0.4s ease-in-out;
         display: inline-block;
         max-width: 280px;
         img {
-          max-width: 100%;
-          height: auto;
-          height: auto;
+          max-height: 100%;
+          width: auto;
           padding-bottom: 15px;
           margin-bottom: 5px;
           &:hover {
@@ -86,6 +118,21 @@
     column-gap: 0px;
     figure {
       width: 100%;
+    }
+    .cardContainer {
+      &:nth-child(1) {
+        border-top: none;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .mainContainer {
+    .cardContainer {
+      &:nth-child(2) {
+        border-top: none;
+      }
     }
   }
 }
