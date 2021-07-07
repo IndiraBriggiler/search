@@ -17,9 +17,32 @@ export const Product = () => {
   }, []);
 
   return (
-    <div>
-      <div>{product[0]?._id}</div>
-      <div>{product[0]?.name}</div>
+    <div className="productMainContainer">
+
+      <div key={product[0]?._id} className="cardContainer">
+        <div className="imgContainer">
+          <figure>
+            <img src={product[0]?.picture} alt={product[0]?.name} />
+          </figure>
+        </div>
+      <div>
+        <div className="cardHeader">
+          <div className="productName"> {product[0]?.name}</div>
+          <div className="productDescription">{product[0]?.about}</div>
+        </div>
+      
+        <div className="cardFooter">
+          <div className="productPrice">${product[0]?.price}</div>
+          <div>
+            <a className="addToBagBtn" href>
+              {product[0]?.isActive ? "ADD TO BAG" : "NOT AVIABLE"}
+            </a>
+          </div>
+        </div>
+      </div>
+      
     </div>
+    </div>
+
   );
 };

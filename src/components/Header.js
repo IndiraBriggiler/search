@@ -6,10 +6,13 @@ export const Header = ({ filterProducts }) => {
   let location = useLocation();
 
   const resultPage = "/search/";
+
   const isResultPageUrl = (path) => {
     return path?.includes(resultPage);
   };
-  const isResultPage = isResultPageUrl();
+
+  const isResultPage = isResultPageUrl(location.pathname);
+
   const [searchQuery, setSearchQuery] = useState(location.state?.query ?? "");
 
   const history = useHistory();
@@ -33,20 +36,11 @@ export const Header = ({ filterProducts }) => {
 
   const search = (e) => {
     setSearchOpen(true);
-
     let targetValue = e.target.value;
     setSearchQuery(targetValue);
     history.push(resultPage + searchQuery, {
       query: searchQuery,
     });
-    console.log(
-      "TARGET VALUE",
-      e.target.value,
-      "SEARCH QUERY",
-      searchQuery,
-      "TARGET VAÑUE",
-      targetValue
-    );
   };
 
   const goToHome = () => {

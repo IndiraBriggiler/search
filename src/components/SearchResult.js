@@ -10,27 +10,26 @@ export const SearchResult = () => {
   const [filteredData, setFilteredData] = useState(allData);
   const [hasResult, setHasResult] = useState(true);
   const history = useHistory();
-  let location = useLocation();
-  const { value } = useParams();
-  const [inptValue, setInptValue] = useState(value);
+  let { query } = useParams();
 
-  console.log(inptValue, "paramValue");
 
-  //   const [searchQuery, setSearchQuery] = useState(location.state?.query ?? "");
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    async () => {
+  const getInitialDAta =  async () => {
       const response = await getAllProducts();
       setAllData(response);
       setFilteredData(response);
-      // filterProducts(inptValue);
-    },
-    [
-      //   inptValue
-    ]
-  );
+      filterProducts(query);
+    console.log(query, "paramValue");
+
+  }
+  useEffect(() => {
+    getInitialDAta();
+  }, []);
+
+  useEffect(() => {
+    getInitialDAta();
+  }, [ query]);
+
+
 
   console.log(filteredData, "FILTERES DATA");
 
@@ -45,21 +44,23 @@ export const SearchResult = () => {
   //     return result;
   //   };
 
-  const handleSearch = (inptValue) => {
+  const handleSearch = (query) => {
+    console.log(query, "paramValue");
+
     let result = [];
-    console.log("HANDLE SEARCH", inptValue);
+    console.log("HANDLE SEARCH", query);
     result = allData.filter((product) => {
       console.log("ADENTRO DEL YHANDLE");
-      //   return product.name.toLowerCase().includes(inptValue?.toLowerCase());
+        return product.name.toLowerCase().includes(query?.toLowerCase());
     });
 
     return result;
   };
 
-  const filterProducts = (inptValue) => {
+  const filterProducts = (query) => {
     console.log("ADENTRO DEL FITLER");
 
-    let result = handleSearch(inptValue);
+    let result = handleSearch(query);
     if (result.length === 0) {
       setHasResult(false);
     } else {
@@ -68,18 +69,18 @@ export const SearchResult = () => {
     }
     return hasResult;
   };
-
+ 
   const goToProduct = (id) => {
     // history.push(`/product/${id}`);
     history.push(prodctPage + id, {
-      query: id,
+      id: id,
     });
   };
 
   return (
     <div>
       <header>
-        <div>HOLA {inptValue}</div>
+        <div>HOLA {query}</div>
       </header>
       <div className="mainContainer">
         {hasResult ? (
@@ -95,8 +96,8 @@ export const SearchResult = () => {
                   <div className="productDescription">{product.about}</div>
                 </div>
                 <div className="imgContainer">
-                  <figure>
-                    <img src={product.picture} alt={product.name} />
+                  <figure className="figuraContainer">
+                    <img className="imgSearch" src={product.picture} alt={product.name} />
                   </figure>
                 </div>
                 <div className="cardFooter">
