@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../styles/customStyles.scss";
 import { useHistory, useLocation } from "react-router-dom";
 
-export const Header = ({ filterProducts }) => {
+export const Header = () => {
+
   let location = useLocation();
 
   const resultPage = "/search/";
@@ -18,27 +19,20 @@ export const Header = ({ filterProducts }) => {
   const history = useHistory();
   const [searchOpen, setSearchOpen] = useState(isResultPage ? true : false);
 
-  //   useEffect(async () => {
-  //     const response = await getAllProducts();
-  //     setAllData(response);
-  //     // setFilteredData(response);
-  //     // filterProducts(value);
-  //   }, [searchQuery]);
-
   const goToSearch = (e) => {
     history.push(resultPage + searchQuery, {
       query: searchQuery,
     });
     setSearchOpen(true);
-
-    console.log("ESTA EN FGO TO");
   };
 
   const search = (e) => {
     setSearchOpen(true);
     let targetValue = e.target.value;
     setSearchQuery(targetValue);
-    history.push(resultPage + searchQuery, {
+    // history.push(resultPage + searchQuery, {
+    history.push(resultPage + targetValue, {
+
       query: searchQuery,
     });
   };
@@ -48,14 +42,22 @@ export const Header = ({ filterProducts }) => {
     setSearchOpen(false);
   };
 
-  console.log(searchOpen, "SEARCH OPEN");
+  const handleOnBlur = (e) => {
+    e.target.value = "";
+  }
+  
+  const handleChange = (e) => {
+    let value = e.target.value;
+    setSearchQuery(value);
 
+  }
+  
+  
   return (
     <div className="header">
       <figure onClick={goToHome} className="macLogo">
-        <img src alt="Logo mac" />
+        <img src="../img/macLogo.png" alt="MAC Logo" className="logoImgMac" />
       </figure>
-
       {searchOpen ? (
         <div className="searchInputContainer">
           <input
@@ -64,6 +66,7 @@ export const Header = ({ filterProducts }) => {
             placeholder="search"
             onChange={search}
             onKeyDown={search}
+            // onBlur={handleOnBlur}
           />
           <span className="material-icons searchIcon" onClick={search}>
             search
@@ -72,10 +75,14 @@ export const Header = ({ filterProducts }) => {
       ) : (
         <div className="searchInputContainer">
           <input
+          id="inputOutsideResult"
             className="searchInput"
             type="text"
             placeholder="search"
+            // onBlur={handleOnBlur}
             onChange={(e) => setSearchQuery(e.target.value)}
+            // onChange={(e)=> handleChange(e)}
+
             onKeyDown={(e) => {
               if (e.keyCode === 13) goToSearch();
             }}

@@ -7,8 +7,12 @@
   align-items: center;
   padding: 10px 15px;
   .macLogo {
+    height: 50px;
     &:hover {
       cursor: pointer;
+    }
+    .logoImgMac {
+      height: 100%;
     }
   }
   .searchInputContainer {
@@ -30,16 +34,62 @@
   }
 }
 
+
+.homeContainer {
+  height: 80vh;
+  background: url('../img/header.jpg') center no-repeat ;
+  background-color: #4E3725;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  .homeText {
+    vertical-align: middle;
+    font-size: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 50px;
+    padding-top: 5%;
+  }
+  .productsText {
+    vertical-align: middle;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.searchResultHeader {
+  border-bottom: 1px solid #ccc;
+  .searchResult {
+    font-size: 30px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+    margin-left: 10px;
+  }
+}
+
+// .mainContainer {
+//   column-width: 320px;
+//   column-gap: 15px;
+//   width: 90%;
+//   margin: 20px auto; 
+// }
 .mainContainer {
-  column-width: 320px;
-  column-gap: 15px;
-  width: 90%;
-  margin: 50px auto; 
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-gap: 10px;
+width: 90%;
+  margin: 20px auto; 
 }
 
 .cardContainer {
   -webkit-column-break-inside: avoid;
-  border-top: 1px solid #ccc;
+  // border-top: 1px solid #ccc;
   padding: 15px;
   padding-bottom: 20px;
   margin: 0 2px 15px;
@@ -113,12 +163,88 @@
 }
 
 
-// .productMainContainer {
+.productCardContainer{
+ display: flex;
+ margin: 30px;
+ .productImgContainer {
+   width: 50%;
+   border: none,
+ }
+ .productInfoContainer {
+   width: 50%;
+   .cardHeader {
+     .uniqueProductName {
+      font-size: 28px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+   }
+   .productCardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0;
+    .productPrice {
+      font-weight: normal;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+    .addToBagBtn {
+      font-size: 20px;
+    }
+    .tagsContainer {
+      margin-top: 10px;
+      .tags {
+      text-transform: uppercase;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      margin-right: 10px;
+      padding: 5px 15px;
+      width: fit-content;
+      font-size: 10px;
+      }
+    }
+    
+   }
+  }
 
-// }
+}
+
+
+.footer {
+  background-color: black;
+  color: white;
+  height: 60px;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 @media screen and (max-width: 750px) {
   .mainContainer {
+grid-template-columns: repeat(2, 1fr);
+
+    column-gap: 0px;
+    figure {
+      width: 100%;
+    }
+    .cardContainer {
+      &:nth-child(1) {
+        border-top: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .mainContainer {
+grid-template-columns: repeat(2, 1fr);
+
     column-gap: 0px;
     figure {
       width: 100%;

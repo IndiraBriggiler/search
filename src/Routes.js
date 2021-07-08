@@ -11,6 +11,7 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { NotFound } from "./components/NotFound";
 import { Product } from "./components/Product";
+import { Products } from "./components/Products";
 
 export const Routes = () => {
   return (
@@ -20,11 +21,14 @@ export const Routes = () => {
         <Route exact path={`/home`}>
           <Home />
         </Route>
-        <Route exact path={`/search/:value?`}>
+        <Route exact path={`/search/:query?`}>
           <SearchResult />
         </Route>
         <Route exact path={`/product/:id`}>
           <Product />
+        </Route>
+        <Route exat path={`/products`}>
+          <Products/>
         </Route>
         <Route exact path="/">
           <Redirect to={`/home`} />

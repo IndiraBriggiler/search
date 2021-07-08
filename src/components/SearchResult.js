@@ -1,66 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { getAllProducts, getProductsById } from "../requestServer";
+import { getAllProducts } from "../requestServer";
 import "../styles/customStyles.scss";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router";
 
 export const SearchResult = () => {
   const prodctPage = "/product/";
   const [allData, setAllData] = useState([]);
-  const [filteredData, setFilteredData] = useState(allData);
+  const [filteredData, setFilteredData] = useState([]);
   const [hasResult, setHasResult] = useState(true);
   const history = useHistory();
   let { query } = useParams();
 
-
-  const getInitialDAta =  async () => {
+  const getInitialData =  async () => {
       const response = await getAllProducts();
       setAllData(response);
       setFilteredData(response);
       filterProducts(query);
-    console.log(query, "paramValue");
-
+      // setHasResult();
+      console.log(hasResult, "HR", filteredData, "FD", query, "QUERy")
   }
+
   useEffect(() => {
-    getInitialDAta();
+    getInitialData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    getInitialDAta();
+    getInitialData();
+    console.log(query, "QUERY")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ query]);
 
-
-
-  console.log(filteredData, "FILTERES DATA");
-
-  //   const handleSearch = (event) => {
-  //     console.log(event, "EVENT");
-  //     let value = event?.target.value;
-  //     let result = [];
-  //     console.log("HANDLE SEARCH", value);
-  //     result = allData.filter((product) => {
-  //       return product.name.toLowerCase().includes(value?.toLowerCase());
-  //     });
-  //     return result;
-  //   };
-
   const handleSearch = (query) => {
-    console.log(query, "paramValue");
-
     let result = [];
-    console.log("HANDLE SEARCH", query);
-    result = allData.filter((product) => {
-      console.log("ADENTRO DEL YHANDLE");
-        return product.name.toLowerCase().includes(query?.toLowerCase());
-    });
-
+    result = allData.filter((product) => product.name.toLowerCase().includes(query?.toLowerCase()));
     return result;
   };
 
   const filterProducts = (query) => {
-    console.log("ADENTRO DEL FITLER");
-
     let result = handleSearch(query);
+    console.log(result, "RESULT")
     if (result.length === 0) {
       setHasResult(false);
     } else {
@@ -71,7 +51,6 @@ export const SearchResult = () => {
   };
  
   const goToProduct = (id) => {
-    // history.push(`/product/${id}`);
     history.push(prodctPage + id, {
       id: id,
     });
@@ -79,11 +58,12 @@ export const SearchResult = () => {
 
   return (
     <div>
-      <header>
-        <div>HOLA {query}</div>
+      <header className="searchResultHeader">
+        <div className="searchResult">{query}</div>
       </header>
-      <div className="mainContainer">
-        {hasResult ? (
+      <div className="mainContainer">  {/* {hasResult ? ( */}
+        {(filteredData.length > 0) ? (
+      
           filteredData.map((product) => {
             return (
               <div
@@ -109,7 +89,7 @@ export const SearchResult = () => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })
         ) : (
           <div className="cardHeader">
